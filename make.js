@@ -25,6 +25,9 @@ writeFile("Server.js",
 			.replace(/  /g, " ")
 			.replace(/\\/g, "\\\\")
 			.replace(/"/g, '\\"')
+			.replace(/__REPLACE_PORT__/g, '" + port + "')
+			.replace(/__REPLACE_ROOT__/g, '" + root + "')
+			.replace(/__REPLACE_INDEX__/g, '" + index + "')
 		+ '\\"'
 	)
 );

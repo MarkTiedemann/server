@@ -1,7 +1,7 @@
 [System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms');
 [System.Reflection.Assembly]::LoadWithPartialName('System.Drawing');
 
-$Url = 'http://localhost:8000/';
+$Url = 'http://localhost:__REPLACE_PORT__/';
 
 $Process = [System.Diagnostics.Process]::New();
 $StartInfo = $Process.StartInfo;
@@ -14,27 +14,11 @@ $Process.Start();
 $IconPath = [System.Environment]::ExpandEnvironmentVariables('%SystemRoot%\System32\newdev.exe');
 $Icon = [System.Drawing.Icon]::ExtractAssociatedIcon($IconPath);
 
-$CurrentUICulture = [System.Globalization.CultureInfo]::CurrentUICulture;
-$Language = $CurrentUICulture.TwoLetterISOLanguageName;
-
-$TrayText = switch ($Language) {
-	'en' { 'Close server' }
-	'de' { 'Server beenden' }
-};
-$BalloonTitle = switch ($Language) {
-	'en' { 'Server listening on ' + $Url }
-	'de' { 'Server horcht auf ' + $Url }
-};
-$BalloonText = switch ($Language) {
-	'en' { 'Click here to open. To close, click tray icon.' }
-	'de' { 'Zum Aufrufen hier klicken. Zum Beenden Ablagebild anklicken.' }
-};
-
 $NotifyIcon = [System.Windows.Forms.NotifyIcon]::New();
 $NotifyIcon.Icon = $Icon;
-$NotifyIcon.Text = $TrayText;
-$NotifyIcon.BalloonTipTitle = $BalloonTitle;
-$NotifyIcon.BalloonTipText = $BalloonText;
+$NotifyIcon.Text = 'Close server';
+$NotifyIcon.BalloonTipTitle = 'Server listening on ' + $Url;
+$NotifyIcon.BalloonTipText = 'Click here to open. To close, click tray icon.';
 $NotifyIcon.Visible = $true;
 $NotifyIcon.Add_Click({
 	if (!$Process.HasExited) {
