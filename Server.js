@@ -1,4 +1,4 @@
-// A tiny, customizable, double-clickable HTTP file server for Windows
+// A tiny, double-clickable HTTP server for Windows
 // https://github.com/MarkTiedemann/server
 
 var port = 8000;
