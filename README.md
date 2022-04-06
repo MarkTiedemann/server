@@ -8,5 +8,5 @@ _Written in PowerShell, distributed as JScript_
 	- Change the port, default: `8000`
 	- Change the server root directory, default: `.`
 	- Change the index file, default: `index.html`
-- Can be closed from tray
+- Can be closed from Tray
 - Licensed as [CC0](https://creativecommons.org/publicdomain/zero/1.0/), no copyright
