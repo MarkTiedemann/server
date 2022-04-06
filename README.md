@@ -2,13 +2,11 @@
 
 _Written in PowerShell, distributed as JScript_
 
-- No dependencies, no install
-- Just download [Server.js](Server.js)
-- Can be run from the command line
-- Or double-clicked from Explorer
-- Tiny, only 2.67 KB in size
-- Yet customizable, e.g.
+- No dependencies, no install, just download [Server.js](Server.js)
+- Can be run from the command line or double-clicked from Explorer
+- Tiny (2.67 KB), yet customizable, e.g.
 	- Change the port, default: `8000`
 	- Change the server root directory, default: `.`
 	- Change the index file, default: `index.html`
 - Can be closed from tray
+- Licensed as [CC0](https://creativecommons.org/publicdomain/zero/1.0/), no copyright
