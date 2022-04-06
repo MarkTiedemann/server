@@ -11,7 +11,7 @@ function Get-ContentType($Pathname) {
 		'.csv' { 'text/csv' }
 		'.jsonld' { 'application/ld+json' }
 		'.mjs' { 'text/javascript' }
-		'.oft' { 'font/otf' }
+		'.otf' { 'font/otf' }
 		'.ttf' { 'font/ttf' }
 		'.wasm' { 'application/wasm' }
 		'.webp' { 'image/webp' }

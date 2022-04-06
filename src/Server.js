@@ -1,3 +1,6 @@
+// A tiny, customizable, double-clickable HTTP file server for Windows
+// https://github.com/MarkTiedemann/server
+
 var port = 8000;
 var root = ".";
 var index = "index.html";
