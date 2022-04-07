@@ -2,11 +2,11 @@
 
 - No dependencies, no install, just download the file
     - CLI: [Server.bat](Server.bat)
-        - 2.23 KB, 53 LOC
+        - 2.22 KB, 53 LOC
         - Written in PowerShell
         - Can be closed via `ctrl+c`
     - GUI: [Server.js](Server.js)
-        - 2.67 KB, 85 LOC
+        - 2.65 KB, 85 LOC
         - Written in PowerShell, distributed as JScript
         - Can be double-clicked from Explorer
         - Runs in background
