@@ -3,7 +3,7 @@
 - No dependencies, no install, just download the file
     - CLI: [Server.bat](Server.bat)
         - 2.22 KB, 53 LOC
-        - Written in PowerShell
+        - Written in PowerShell, distributed as Batch script
         - Can be closed via `ctrl+c`
     - GUI: [Server.js](Server.js)
         - 2.65 KB, 85 LOC
