@@ -1,4 +1,4 @@
-// A tiny, double-clickable HTTP server for Windows
+// A tiny HTTP server GUI for Windows
 // https://github.com/MarkTiedemann/server
 
 var port = 8000;

@@ -1,19 +1,43 @@
 var fs = new ActiveXObject("Scripting.FileSystemObject");
 
-var Server_js = readFile("src\\Server.js");
-var Tray_ps1 = readFile("src\\Tray.ps1");
-var Server_ps1 = readFile("src\\Server.ps1");
-
-writeFile("Server.js",
-	Server_js
+writeFile("Server.bat",
+	readFile("src\\MainCLI.bat")
 	.replace(
-		"-f Tray.ps1",
-		'-c \\"' +
-			Tray_ps1
+		"-f CLI.ps1",
+		'-c "' +
+			readFile("src\\CLI.ps1")
 			.replace(
 				"-f Server.ps1",
 				'-c "' +
-				Server_ps1
+				readFile("src\\Server.ps1")
+					.replace(/\r\n/g, " ")
+					.replace(/\t+/g, " ")
+					.replace(/  /g, " ")
+					.replace(/'/g, "''")
+					.replace(/ $/, "")
+				+ '"'
+			)
+			.replace(/\r\n/g, " ")
+			.replace(/\t+/g, " ")
+			.replace(/  /g, " ")
+			.replace(/__REPLACE_PORT__/g, "%port%")
+			.replace(/__REPLACE_ROOT__/g, "%root%")
+			.replace(/__REPLACE_INDEX__/g, "%index%")
+			.replace(/ $/, "")
+		+ '"'
+	)
+);
+
+writeFile("Server.js",
+	readFile("src\\MainGUI.js")
+	.replace(
+		"-f GUI.ps1",
+		'-c \\"' +
+			readFile("src\\GUI.ps1")
+			.replace(
+				"-f Server.ps1",
+				'-c "' +
+				readFile("src\\Server.ps1")
 					.replace(/\r\n/g, " ")
 					.replace(/\t+/g, " ")
 					.replace(/  /g, " ")
