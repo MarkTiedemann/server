@@ -1,12 +1,16 @@
 [System.Reflection.Assembly]::LoadWithPartialName('System.Web');
 
+$OctetStream = 'application/octet-stream';
+
 $Server = [System.Net.HttpListener]::New();
 $Server.Prefixes.Add('http://localhost:__REPLACE_PORT__/');
 $Server.Start();
 
 function Get-ContentType($Pathname) {
 	$Extension = [System.IO.Path]::GetExtension($Pathname);
-	$OctetStream = 'application/octet-stream';
+	if ($Extension -eq $null) {
+		return $OctetStream;
+	}
 	$ContentType = switch ($Extension) {
 		'.csv' { 'text/csv' }
 		'.jsonld' { 'application/ld+json' }
@@ -41,8 +45,16 @@ while ($Server.IsListening) {
 			$Pathname = '\__REPLACE_INDEX__';
 		}
 		$Path = '__REPLACE_ROOT__' + $Pathname;
+		$ContentType = Get-ContentType($Path);
+		if ($__REPLACE_CLEAN_URLS__ -and ($ContentType -eq $OctetStream)) {
+			if ($Path.EndsWith('\')) {
+				$Path = $Path.Substring(0, $Path.Length - 1);
+			}
+			$Path += '.html';
+			$ContentType = 'text/html';
+		}
 		$File = [System.IO.File]::Open($Path, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, [System.IO.FileShare]::ReadWrite);
-		$Response.ContentType = Get-ContentType($Path);
+		$Response.ContentType = $ContentType;
 		$File.CopyTo($Response.OutputStream);
 	} catch {
 		$Response.StatusCode = 404;

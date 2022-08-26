@@ -11,5 +11,5 @@
         - Can be double-clicked from Explorer
         - Runs in background
         - Can be closed from Tray
-- Customizable: change port, root directory and index file
+- Customizable: change port, root directory and index file, allow clean URLs
 - Licensed as [CC0](https://creativecommons.org/publicdomain/zero/1.0/), no copyright

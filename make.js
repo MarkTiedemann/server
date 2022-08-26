@@ -23,6 +23,7 @@ writeFile("Server.bat",
 			.replace(/__REPLACE_PORT__/g, "%port%")
 			.replace(/__REPLACE_ROOT__/g, "%root%")
 			.replace(/__REPLACE_INDEX__/g, "%index%")
+			.replace(/__REPLACE_CLEAN_URLS__/g, "%clean_urls%")
 			.replace(/ $/, "")
 		+ '"'
 	)
@@ -52,6 +53,7 @@ writeFile("Server.js",
 			.replace(/__REPLACE_PORT__/g, '" + port + "')
 			.replace(/__REPLACE_ROOT__/g, '" + root + "')
 			.replace(/__REPLACE_INDEX__/g, '" + index + "')
+			.replace(/__REPLACE_CLEAN_URLS__/g, '" + clean_urls + "')
 		+ '\\"'
 	)
 );
