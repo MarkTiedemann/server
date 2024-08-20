@@ -1,5 +1,3 @@
-- Fix clean URLs being applied to existing files with unknown mime type
-- Index files should work across subdirectories as well
 - Properly build mime types
 	- Check default Windows mime types on fresh system, for example, in Docker container
 	- Compare to IANA mime types

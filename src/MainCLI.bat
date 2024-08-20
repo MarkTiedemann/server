@@ -7,6 +7,5 @@ setlocal
 set port=8000
 set root=.
 set index=index.html
-set clean_urls=true
 
 powershell -f CLI.ps1

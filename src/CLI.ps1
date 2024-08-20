@@ -16,6 +16,6 @@ while ($true) {
 			Exit;
 		}
 	} else {
-		Start-Sleep -Milliseconds 10;
+		Start-Sleep -Milliseconds 100;
 	}
 }

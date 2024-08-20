@@ -1,14 +1,17 @@
+$Port = '__REPLACE_PORT__';
+$Root = '__REPLACE_ROOT__';
+$Index = '__REPLACE_INDEX__';
+
 [System.Reflection.Assembly]::LoadWithPartialName('System.Web');
 
-$OctetStream = 'application/octet-stream';
-
 $Server = [System.Net.HttpListener]::New();
-$Server.Prefixes.Add('http://localhost:__REPLACE_PORT__/');
+$Server.Prefixes.Add('http://localhost:' + $Port + '/');
 $Server.Start();
 
-function Get-ContentType($Pathname) {
+function Get-ContentType([string] $Pathname) {
 	$Extension = [System.IO.Path]::GetExtension($Pathname);
-	if ($Extension -eq $null) {
+	$OctetStream = 'application/octet-stream';
+	if ($null -eq $Extension) {
 		return $OctetStream;
 	}
 	$ContentType = switch ($Extension) {
@@ -27,7 +30,7 @@ function Get-ContentType($Pathname) {
 		$ContentType = [System.Web.MimeMapping]::GetMimeMapping($Extension);
 		if ($ContentType -eq $OctetStream) {
 			$ContentType = [Microsoft.Win32.Registry]::GetValue('HKEY_CLASSES_ROOT\' + $Extension, 'Content Type', $null);
-			if ($ContentType -eq $null) {
+			if ($null -eq $ContentType) {
 				$ContentType = $OctetStream;
 			}
 		}
@@ -40,26 +43,26 @@ while ($Server.IsListening) {
 		$Context = $Server.GetContext();
 		$Request = $Context.Request;
 		$Response = $Context.Response;
-		$Pathname = $Request.Url.LocalPath -replace '/', '\';
-		if ($Pathname -eq '\') {
-			$Pathname = '\__REPLACE_INDEX__';
+		if ($Request.HttpMethod -ne 'GET') {
+			$Response.StatusCode = 405;
+			continue;
 		}
-		$Path = '__REPLACE_ROOT__' + $Pathname;
-		$ContentType = Get-ContentType($Path);
-		if ($__REPLACE_CLEAN_URLS__ -and ($ContentType -eq $OctetStream)) {
-			if ($Path.EndsWith('\')) {
-				$Path = $Path.Substring(0, $Path.Length - 1);
-			}
-			$Path += '.html';
+		$Pathname = $Request.Url.LocalPath;
+		if ($Pathname.EndsWith('/')) {
+			$Pathname += $Index;
 			$ContentType = 'text/html';
 		}
-		$File = [System.IO.File]::Open($Path, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, [System.IO.FileShare]::ReadWrite);
+		$Path = $Root + ($Pathname -replace '/', '\');
+		$ContentType = Get-ContentType($Path);
+		$File = [System.IO.File]::Open($Path, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, [System.IO.FileShare]::Read);
 		$Response.ContentType = $ContentType;
 		$File.CopyTo($Response.OutputStream);
 	} catch {
 		$Response.StatusCode = 404;
 	} finally {
 		$Response.Close();
-		$File.Close();
+		if ($null -ne $File) {
+			$File.Close();
+		}
 	}
 }
